@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Account Settings</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo white.png" alt="Tanigather Logo" class="logo-img"> <!-- Menambahkan gambar logo -->
+            Tanigather
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="soil-moisture.html">Soil Moisture</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<body>
+    <div class="container">
+        <h1>Information</h1>
+        <p>If you want, you can update your personal information.</p>
+        <div class="avatar">
+            <img src="avatar.png" alt="Avatar" class="avatar-image" id="avatarImage">
+            <div class="avatar-buttons">
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                <button type="button" class="change-image" onclick="document.getElementById('fileInput').click()">Change Image</button>
+                <button type="button" class="remove-image" onclick="removeImage()">Remove Image</button>
+            </div>
+        </div>
+        
+        <form>
+            <label for="username">* User Name:</label>
+            <input type="text" id="username" name="username" value="ccasper" required>
+
+            <label for="email">* Email Address:</label>
+            <input type="email" id="email" name="email" value="example@example.com" required>
+
+            <label for="first-name">* First Name:</label>
+            <input type="text" id="first-name" name="first-name" value="Chris" required>
+
+            <label for="last-name">* Last Name:</label>
+            <input type="text" id="last-name" name="last-name" value="Casper" required>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="student">
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone">
+
+            <label for="street">Street:</label>
+            <input type="text" id="street" name="street">
+
+            <label for="city-state-zip">City, State & Zip:</label>
+            <div class="address">
+                <input type="text" id="city" name="city" placeholder="City">
+                <input type="text" id="state" name="state" placeholder="State" style="width: 60px;">
+                <input type="text" id="zip" name="zip" placeholder="Zip Code" style="width: 80px;">
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+    <script>
+        function previewImage(event) {
+            const image = document.getElementById('avatarImage');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function removeImage() {
+            const image = document.getElementById('avatarImage');
+            image.src = 'avatar.png'; // Reset to default image
+            document.getElementById('fileInput').value = ''; // Clear the file input
+        }
+    </script>
+</body>
+</html>

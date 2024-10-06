@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Moisture</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        const city = 'Jakarta'; // Ganti dengan nama kota yang diinginkan
+        const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=yes,`; // URL ke server backend
+
+        // Ambil data dari backend
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Ambil data yang dibutuhkan
+                const temperature = data.current.temp_c; // Suhu dalam Celsius
+                const humidity = data.current.humidity; // Kelembapan
+                const windSpeed = data.current.wind_kph; // Kecepatan Angin dalam km/h
+
+                // Data untuk chart
+                const labels = ['Temperature (°C)', 'Humidity (%)', 'Wind Speed (km/h)'];
+                const chartData = [temperature, humidity, windSpeed];
+
+                // Membuat chart
+                const ctx = document.getElementById('weatherChart').getContext('2d');
+                const weatherChart = new Chart(ctx, {
+                    type: 'bar', // Tipe chart, bisa diganti sesuai kebutuhan
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Weather Data',
+                            data: chartData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)', // Warna untuk Temperature
+                                'rgba(54, 162, 235, 0.2)', // Warna untuk Humidity
+                                'rgba(255, 206, 86, 0.2)'  // Warna untuk Wind Speed
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching the weather data:', error));
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo white.png" alt="Tanigather Logo" class="logo-img"> <!-- Menambahkan gambar logo -->
+            Tanigather
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="weather.html">Weather</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="widget">
+            <h2>Soil Moisture Data</h2>
+            <div id="soil-moisture-data">Loading...</div> <!-- Tempat untuk menampilkan data -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Website</p>
+    </footer>
+</body>
+</html>
