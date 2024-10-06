@@ -1,0 +1,79 @@
+const express = require('express');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
+
+const app = express();
+
+// Replace these with your own credentials
+const GOOGLE_CLIENT_ID = '465374174899-nuq8b0v9pt8c5lso1balvulfs8sn0e93.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
+
+// Middleware
+app.use(session({ secret: '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', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport configuration
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
+// Google OAuth strategy
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "/auth/google/callback"
+}, (accessToken, refreshToken, profile, done) => {
+    return done(null, profile);
+}));
+
+// Routes
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+}));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/' }),
+    (req, res) => {
+        res.redirect('/dashboard');
+    });
+
+app.get('/dashboard', (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    res.send(`<h1>Welcome, yaya dah stress ${req.user.displayName}!</h1><a href="/logout">Logout</a>`);
+});
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
+// Home route
+app.get('/', (req, res) => {
+    res.send(`
+        <h1>Google Sign-In</h1>
+        <div id="g_id_onload" data-client_id="${GOOGLE_CLIENT_ID}"></div>
+        <div class="g_id_signin" data-type="standard"></div>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script>
+            function handleCredentialResponse(response) {
+                const data = response.credential;
+                console.log("Encoded JWT ID token: " + data);
+            }
+        </script>
+        <a href="/auth/google"><button>Sign in with Google</button></a>
+    `);
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
