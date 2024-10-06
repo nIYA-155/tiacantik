@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="community.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="images/logo white.png" alt="Tanigather Logo" class="logo-img"> <!-- Menambahkan gambar logo -->
+        Tanigather
+    </div>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="weather.html">Weather</a></li>
+            <li><a href="soil-moisture.html">Soil Moisture</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <div class="widget community-posts" id="posts">
+        <h2>Community Posts</h2>
+        <div class="posts-container"> <!-- Container untuk postingan -->
+            <p>No posts yet.</p> <!-- Pesan jika tidak ada postingan -->
+        </div>
+    </div>
+    <div class="widget">
+        <h2>Post Something</h2>
+        <form id="post-form">
+            <label for="post-content">Your Post:</label>
+            <textarea id="post-content" placeholder="What's on your mind?" required></textarea>
+            <button type="submit">Post</button> <!-- Tombol untuk mengirim postingan -->
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Farmers Community. All Rights Reserved.</p>
+</footer>
+
+<script src="community.html"></script> <!-- Link ke JavaScript -->
+</body>
+</html>

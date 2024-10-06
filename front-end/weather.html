@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script-weather.js" defer></script>
+    <style>
+        canvas {
+            margin-bottom: 20px; /* Jarak antara grafik */
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo white.png" alt="Tanigather Logo" class="logo-img"> <!-- Menambahkan gambar logo -->
+            Tanigather
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="soil-moisture.html">Soil Moisture</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Weather</h2>
+        <div id="weather-info"></div>
+    
+        <h2>Rainfall Visualization</h2>
+        <canvas id="rainfallChart" width="400" height="200"></canvas>
+    
+        <h2>Wind Speed Visualization</h2>
+        <canvas id="windspeedChart" width="400" height="200"></canvas>
+    
+        <h2>Temperature Visualization</h2>
+        <canvas id="temperatureChart" width="400" height="200"></canvas>
+    
+        <button onclick="goBack()">Kembali</button>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Website</p>
+    </footer>
+</body>
+</html>
